@@ -1,0 +1,303 @@
+@use "../../styles/variables.scss" as *;
+
+.container {
+  position: relative;
+  padding: 80px 0 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background:
+    radial-gradient(circle at 70% 20%, rgba(232, 205, 140, 0.25) 0%, transparent 55%),
+    linear-gradient(180deg, #fbf7ee 0%, #f6efdf 100%);
+  overflow: hidden;
+}
+
+// Звёздная пыль в фоне секции
+.dust {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+
+  span {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: rgba(153, 118, 44, 0.5);
+    border-radius: 50%;
+    animation: dustFloat 8s ease-in-out infinite;
+  }
+
+  span[data-i="0"] { top: 8%;  left: 12%; animation-delay: 0s; }
+  span[data-i="1"] { top: 22%; left: 78%; animation-delay: 1.2s; }
+  span[data-i="2"] { top: 42%; left: 25%; animation-delay: 0.6s; }
+  span[data-i="3"] { top: 62%; left: 85%; animation-delay: 1.8s; }
+  span[data-i="4"] { top: 82%; left: 18%; animation-delay: 2.4s; }
+  span:nth-child(6)  { top: 15%; left: 55%; }
+  span:nth-child(7)  { top: 35%; left: 8%;  }
+  span:nth-child(8)  { top: 55%; left: 62%; }
+  span:nth-child(9)  { top: 75%; left: 42%; }
+  span:nth-child(10) { top: 12%; left: 88%; }
+  span:nth-child(11) { top: 28%; left: 38%; }
+  span:nth-child(12) { top: 48%; left: 72%; }
+  span:nth-child(13) { top: 68%; left: 15%; }
+  span:nth-child(14) { top: 88%; left: 65%; }
+  span:nth-child(15) { top: 18%; left: 22%; }
+  span:nth-child(16) { top: 38%; left: 92%; }
+  span:nth-child(17) { top: 58%; left: 32%; }
+  span:nth-child(18) { top: 78%; left: 75%; }
+  span:nth-child(19) { top: 92%; left: 48%; }
+  span:nth-child(20) { top: 5%;  left: 68%; }
+}
+
+@keyframes dustFloat {
+  0%, 100% { opacity: 0.15; transform: translateY(0) scale(1); }
+  50%      { opacity: 0.75; transform: translateY(-12px) scale(1.4); }
+}
+
+.title {
+  font-family: var(--playfair-display-sc);
+  font-weight: 400;
+  font-size: 26px;
+  margin-bottom: 44px;
+  letter-spacing: 0.08em;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+  @include gold-text;
+}
+
+.list {
+  position: relative;
+  width: 100%;
+  max-width: 380px;
+  padding: 20px 0 30px;
+  z-index: 1;
+}
+
+// «Рельса» — вертикальная линия
+.rail {
+  position: absolute;
+  left: 20px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: rgba(153, 118, 44, 0.15);
+  border-radius: 2px;
+  overflow: visible;
+}
+
+.railFill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: linear-gradient(180deg, var(--main-color) 0%, #c69b47 100%);
+  border-radius: 2px;
+  will-change: height;
+  box-shadow: 0 0 12px rgba(153, 118, 44, 0.4);
+}
+
+// Светящаяся "искра" на конце заливки
+.railGlow {
+  position: absolute;
+  left: -6px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff 0%, #e8cd8c 40%, transparent 70%);
+  transform: translateY(-50%);
+  filter: blur(2px);
+  will-change: top;
+}
+
+.step {
+  position: relative;
+  padding: 14px 0;
+}
+
+.stepInner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  padding-left: 0;
+}
+
+.stepNumber {
+  position: absolute;
+  right: -6px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--playfair-display-sc);
+  font-weight: 400;
+  font-size: 90px;
+  line-height: 1;
+  @include gold-text;
+  pointer-events: none;
+  z-index: 0;
+  will-change: transform, opacity;
+}
+
+.stepCard {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 14px 18px;
+  border-radius: 14px;
+  @include glass-card;
+  flex: 1;
+  min-width: 0;
+  margin-left: 32px;
+  will-change: transform;
+}
+
+.stepTime {
+  font-family: var(--playfair-display-sc);
+  font-size: 24px;
+  color: var(--main-color);
+  letter-spacing: 0.08em;
+  line-height: 1;
+}
+
+.stepTitle {
+  font-family: var(--playfair-display);
+  font-size: 16px;
+  color: var(--black);
+  opacity: 0.9;
+  letter-spacing: 0.02em;
+}
+
+.stepLine {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    rgba(153, 118, 44, 0.4) 0%,
+    transparent 100%
+  );
+  margin: 2px 0;
+}
+
+.stepMeta {
+  font-family: var(--playfair-display-sc);
+  font-size: 10px;
+  color: var(--main-color);
+  opacity: 0.55;
+  letter-spacing: 0.24em;
+}
+
+.stepDot {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 20px;
+  height: 20px;
+  z-index: 3;
+}
+
+.stepDotCore {
+  position: absolute;
+  inset: 4px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #e8cd8c 0%, #99762c 100%);
+  box-shadow:
+    0 0 0 4px #fbf7ee,
+    0 0 12px rgba(153, 118, 44, 0.5);
+  will-change: transform;
+}
+
+.stepDotGlow {
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 1px solid rgba(153, 118, 44, 0.5);
+  animation: dotGlow 2.4s ease-out infinite;
+  pointer-events: none;
+}
+
+@keyframes dotGlow {
+  0%   { transform: scale(0.8); opacity: 0.8; }
+  100% { transform: scale(1.8); opacity: 0;   }
+}
+
+// ==================== Desktop: центральная рельса + zigzag ====================
+@media (min-width: 768px) {
+  .container {
+    padding: 140px 0 120px;
+  }
+  .title {
+    font-size: 44px;
+    margin-bottom: 80px;
+    letter-spacing: 0.1em;
+  }
+  .list {
+    max-width: 900px;
+    padding: 30px 0 80px;
+  }
+  .rail {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .step {
+    padding: 30px 0;
+  }
+  .stepInner {
+    justify-content: center;
+    padding: 0;
+    gap: 0;
+  }
+
+  .stepRight .stepInner { flex-direction: row; }
+  .stepLeft  .stepInner { flex-direction: row-reverse; }
+
+  .stepDot {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 26px;
+    height: 26px;
+  }
+
+  .stepDotCore {
+    inset: 5px;
+    box-shadow:
+      0 0 0 5px #fbf7ee,
+      0 0 22px rgba(153, 118, 44, 0.55);
+  }
+
+  .stepCard {
+    width: calc(50% - 44px);
+    margin: 0 44px 0 0;
+    padding: 24px 28px;
+    flex: initial;
+  }
+  .stepLeft .stepCard {
+    margin: 0 0 0 44px;
+    text-align: right;
+    align-items: flex-end;
+  }
+
+  .stepRight .stepNumber {
+    right: 55%;
+    left: auto;
+    text-align: right;
+  }
+  .stepLeft .stepNumber {
+    left: 55%;
+    right: auto;
+    text-align: left;
+  }
+  .stepNumber {
+    font-size: 220px;
+    line-height: 1;
+    top: 50%;
+  }
+
+  .stepTime  { font-size: 34px; }
+  .stepTitle { font-size: 20px; }
+  .stepMeta  { font-size: 12px; letter-spacing: 0.3em; }
+}

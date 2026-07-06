@@ -1,8 +1,32 @@
 :root {
   // palette:
   --main-color: #99762c;
+  --main-color-deep: #7c6024;
+  --main-color-light: #c69b47;
+  --champagne: #e8cd8c;
+  --cream: #fbf7ee;
+  --cream-warm: #f6efdf;
   --white: #fff;
   --black: #000;
+  --ink: #2a2214;
+
+  // signature gold gradient — используется для заголовков и акцентов
+  --gold-gradient: linear-gradient(
+    135deg,
+    #7c6024 0%,
+    #b8903a 25%,
+    #e8cd8c 50%,
+    #b8903a 75%,
+    #7c6024 100%
+  );
+
+  // мягкая шампань для декоративных элементов
+  --champagne-gradient: linear-gradient(
+    135deg,
+    #d4a94a 0%,
+    #f4e2b5 50%,
+    #d4a94a 100%
+  );
 
   // fonts:
   --antic-didone: "AnticDidone";
@@ -10,4 +34,51 @@
   --playfair-display-sc: "PlayfairDisplaySC";
   --poiret-one: "PoiretOne";
   --savoye-let: "SavoyeLET";
+}
+
+// ————— Утилиты для премиума —————
+
+// Заголовок в градиенте золота — сразу даёт "дорогой" вид.
+@mixin gold-text {
+  background: var(--gold-gradient);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  animation: goldShimmer 8s ease-in-out infinite;
+}
+
+@keyframes goldShimmer {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+// Стеклянная карточка с золотистой окантовкой
+@mixin glass-card {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.7) 0%,
+    rgba(255, 245, 220, 0.55) 100%
+  );
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  border: 1px solid rgba(200, 155, 60, 0.28);
+  box-shadow:
+    0 22px 60px -20px rgba(80, 60, 15, 0.28),
+    0 2px 6px rgba(153, 118, 44, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+// Тонкая золотая линия с бликом-highlight
+@mixin gold-hairline {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(153, 118, 44, 0.4) 30%,
+    rgba(232, 205, 140, 0.9) 50%,
+    rgba(153, 118, 44, 0.4) 70%,
+    transparent 100%
+  );
 }

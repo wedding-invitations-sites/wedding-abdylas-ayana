@@ -1,0 +1,253 @@
+@use "../../styles/variables.scss" as *;
+
+.stage {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 16px;
+  min-height: 420px;
+}
+
+.perspective {
+  perspective: 1400px;
+  width: 100%;
+  max-width: 380px;
+}
+
+// Основной конверт — 3D wrapper
+.envelope {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 8 / 5;
+  transform-style: preserve-3d;
+  will-change: transform, opacity;
+}
+
+// Общий стиль стенок
+.back,
+.front,
+.flap {
+  position: absolute;
+  inset: 0;
+  border-radius: 4px;
+  backface-visibility: hidden;
+}
+
+// Задняя стенка (базовый фон)
+.back {
+  background:
+    linear-gradient(160deg, #d4a94a 0%, #b8903a 45%, #99762c 100%);
+  box-shadow:
+    inset 0 0 40px rgba(80, 45, 10, 0.35),
+    0 20px 60px -18px rgba(80, 60, 15, 0.55);
+  z-index: 0;
+}
+
+// Передняя стенка
+.front {
+  background:
+    linear-gradient(160deg, #c69b47 0%, #a17d2f 45%, #7c6024 100%);
+  box-shadow:
+    inset 0 0 30px rgba(50, 30, 5, 0.45),
+    0 -2px 0 rgba(255, 240, 200, 0.25) inset;
+  z-index: 2;
+  overflow: hidden;
+
+  // Диагональные "сгибы" конверта
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: rgba(80, 45, 10, 0.35);
+  }
+  // Треугольные линии, сходящиеся к центру-верху
+  &::before {
+    top: 0;
+    height: 100%;
+    background:
+      linear-gradient(to top right, transparent 49.5%, rgba(80, 45, 10, 0.3) 50%, transparent 50.5%) 0 0 / 50% 100% no-repeat,
+      linear-gradient(to top left, transparent 49.5%, rgba(80, 45, 10, 0.3) 50%, transparent 50.5%) 100% 0 / 50% 100% no-repeat;
+  }
+}
+
+.frontFrame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+// Клапан сверху — 3D-открытие
+.flap {
+  transform-origin: top center;
+  transform-style: preserve-3d;
+  height: 50%;
+  z-index: 3;
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  background:
+    linear-gradient(180deg, #d4a94a 0%, #b8903a 100%);
+  box-shadow:
+    inset 0 -6px 12px rgba(80, 45, 10, 0.35);
+}
+
+.flapInner {
+  position: absolute;
+  inset: 0;
+  transform: rotateX(180deg);
+  backface-visibility: hidden;
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  background: linear-gradient(0deg, #e0b658 0%, #b8903a 100%);
+}
+
+// Письмо внутри
+.letter {
+  position: absolute;
+  left: 6%;
+  right: 6%;
+  top: 6%;
+  bottom: 6%;
+  background: linear-gradient(180deg, #fbf7ee 0%, #f4ead4 100%);
+  border-radius: 3px;
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.15),
+    inset 0 0 30px rgba(153, 118, 44, 0.08);
+  z-index: 1;
+  overflow: hidden;
+  will-change: transform, opacity;
+}
+
+.letterInner {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 12px 20px;
+  text-align: center;
+}
+
+.title {
+  font-family: var(--playfair-display);
+  font-size: 14px;
+  color: var(--main-color);
+  letter-spacing: 0.06em;
+  margin: 0;
+}
+
+.divider {
+  width: 80px;
+  svg { width: 100%; display: block; }
+}
+
+.names {
+  font-family: var(--savoye-let);
+  font-size: 32px;
+  color: var(--main-color);
+  line-height: 1;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+// Сургучная печать
+.seal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  filter: drop-shadow(0 6px 16px rgba(70, 15, 8, 0.55));
+  will-change: transform, opacity;
+}
+
+.sealSvg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+// Осколки после разрыва печати
+.splashLayer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 0;
+  height: 0;
+  z-index: 6;
+  pointer-events: none;
+}
+
+.chip {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  background: linear-gradient(135deg, #a63a25 0%, #5a1a10 100%);
+  transform-origin: center;
+  will-change: transform, opacity;
+}
+
+// Пульсирующая подсказка на печати
+.hint {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  pointer-events: none;
+
+  border: 1.5px solid rgba(255, 245, 220, 0.6);
+  animation: hintPulse 2s ease-out infinite;
+}
+
+.hintDot {
+  display: none;
+}
+
+@keyframes hintPulse {
+  0%   { transform: translate(-50%, -50%) scale(0.75); opacity: 0.9; }
+  100% { transform: translate(-50%, -50%) scale(1.35); opacity: 0; }
+}
+
+@media (min-width: 768px) {
+  .stage {
+    padding: 60px 16px;
+    min-height: 560px;
+  }
+  .perspective {
+    max-width: 560px;
+  }
+  .title {
+    font-size: 18px;
+  }
+  .names {
+    font-size: 48px;
+  }
+  .seal {
+    width: 150px;
+    height: 150px;
+  }
+  .hint {
+    width: 190px;
+    height: 190px;
+  }
+}

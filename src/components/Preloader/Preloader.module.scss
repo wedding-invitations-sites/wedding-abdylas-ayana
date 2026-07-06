@@ -1,0 +1,92 @@
+@use "../../styles/variables.scss" as *;
+
+.wrapper {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  background:
+    radial-gradient(circle at 30% 30%, #f8f2e6 0%, #e8d9b5 100%);
+  overflow: hidden;
+}
+
+.ambient {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+
+  span {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(70px);
+    opacity: 0.7;
+  }
+  span:nth-child(1) {
+    top: -10%; left: -10%;
+    width: 60%; height: 60%;
+    background: radial-gradient(circle, rgba(232, 205, 140, 0.7), transparent 70%);
+    animation: preAmbient 8s ease-in-out infinite;
+  }
+  span:nth-child(2) {
+    bottom: -10%; right: -10%;
+    width: 55%; height: 55%;
+    background: radial-gradient(circle, rgba(198, 155, 71, 0.55), transparent 70%);
+    animation: preAmbient 10s ease-in-out infinite 2s;
+  }
+}
+
+@keyframes preAmbient {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50%      { transform: translate(4%, 4%) scale(1.1); }
+}
+
+.mark {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: baseline;
+  gap: 22px;
+  font-family: var(--savoye-let);
+  line-height: 1;
+}
+
+.letter {
+  font-size: 110px;
+  display: inline-block;
+  @include gold-text;
+  filter: drop-shadow(0 4px 14px rgba(153, 118, 44, 0.28));
+}
+
+.amp {
+  font-size: 64px;
+  opacity: 0.9;
+  display: inline-block;
+  @include gold-text;
+}
+
+.lineTrack {
+  position: relative;
+  z-index: 1;
+  width: 160px;
+  height: 1.5px;
+  background: rgba(153, 118, 44, 0.15);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.lineFill {
+  width: 100%;
+  height: 100%;
+  background: var(--gold-gradient);
+  transform-origin: left center;
+}
+
+@media (min-width: 768px) {
+  .letter { font-size: 160px; }
+  .amp    { font-size: 96px;  }
+  .lineTrack { width: 220px; }
+}

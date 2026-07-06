@@ -1,51 +1,190 @@
+@use "../../styles/variables.scss" as *;
+
 .wrapper {
+  position: relative;
   height: var(--height);
+  overflow: hidden;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  color: var(--white);
+  text-align: center;
+}
+
+// Слой фона — параллакс + cinematic blur reveal
+.bg {
+  position: absolute;
+  inset: -8% -8% -12% -8%;
   background: url("/HeroBg.webp");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  will-change: transform, filter, opacity;
+  z-index: 0;
+}
+
+// Основной оверлей — тёмный градиент для читаемости
+.overlay {
+  position: absolute;
+  inset: -5% -5% -5% -5%;
+  background:
+    radial-gradient(ellipse at 50% 30%,
+      rgba(153, 118, 44, 0.18) 0%,
+      rgba(0, 0, 0, 0) 55%),
+    linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.25) 0%,
+      rgba(0, 0, 0, 0.05) 30%,
+      rgba(0, 0, 0, 0.55) 100%
+    );
+  z-index: 1;
+  pointer-events: none;
+  will-change: transform;
+}
+
+// Виньетка по краям
+.vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 40%,
+    rgba(0, 0, 0, 0.55) 100%
+  );
+  z-index: 1;
+  pointer-events: none;
+  mix-blend-mode: multiply;
+}
+
+// Декоративные "искры" — реагируют на движение мыши
+.sparks {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.spark {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: rgba(255, 240, 210, 0.9);
+  box-shadow: 0 0 12px rgba(255, 240, 210, 0.9);
+  animation: sparkPulse 4s ease-in-out infinite;
+
+  &[data-i="1"] { top: 18%; left: 12%; animation-delay: 0.2s;  }
+  &[data-i="2"] { top: 28%; right: 15%; animation-delay: 1.1s;  }
+  &[data-i="3"] { top: 62%; left: 22%; animation-delay: 0.7s;  }
+  &[data-i="4"] { top: 72%; right: 28%; animation-delay: 1.6s;  }
+  &[data-i="5"] { top: 42%; left: 48%; animation-delay: 2.2s;  }
+}
+
+@keyframes sparkPulse {
+  0%, 100% { opacity: 0; transform: scale(0.6); }
+  50%      { opacity: 1; transform: scale(1.4); }
+}
+
+.content {
+  position: relative;
+  z-index: 2;
+  margin-top: 40%;
+  width: 100%;
+  padding: 0 16px;
+  will-change: transform, opacity;
+}
+
+.heading {
+  font-size: 46px;
+  font-weight: 400;
+  text-shadow: 0px 4px 22px rgba(0, 0, 0, 0.65);
+  font-family: var(--antic-didone);
+  line-height: 1.1;
+  letter-spacing: 0.05em;
   display: flex;
-  align-items: center;
   flex-direction: column;
-  color: var(--white);
-  text-align: center;
+  align-items: center;
+  gap: 4px;
+}
 
-  .heading {
-    margin-top: 50%;
-    font-size: 48px;
-    font-weight: 400;
-    text-shadow: 0px 4px 10px rgba(0, 0, 0, 0.45);
-    font-family: var(--antic-didone);
-  }
+.name {
+  display: inline-flex;
+  overflow: hidden;
+  padding: 4px 0;
+}
 
-  .bottom {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    color: var(--white);
+.letter {
+  display: inline-block;
+  white-space: pre;
+  will-change: transform, opacity, filter;
+}
+
+// Ampersand — крупный, рукописный, чуть светящийся
+.amp {
+  font-family: var(--savoye-let);
+  font-size: 80px;
+  line-height: 0.75;
+  color: rgba(255, 245, 220, 1);
+  display: inline-block;
+  text-shadow:
+    0 0 20px rgba(255, 220, 160, 0.55),
+    0 2px 12px rgba(0, 0, 0, 0.5);
+  margin: -6px 0;
+}
+
+// Мини-орнамент под именами
+.smallOrnament {
+  margin: 18px auto 0;
+  width: 60%;
+  max-width: 220px;
+  transform-origin: center;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.4));
+
+  svg {
     width: 100%;
-    margin-top: 75px;
-    transition: opacity 0.2s ease-out, visibility 0.2s ease-out;
-    opacity: 1;
-    visibility: visible;
-
-    h2 {
-      font-family: var(--antic-didone);
-      font-weight: 400;
-      font-size: 25px;
-    }
-    p {
-      font-family: var(--poiret-one);
-      font-weight: 400;
-      font-size: 18px;
-    }
+    height: auto;
+    display: block;
   }
+}
 
-  .isHidden {
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
+.bottom {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--white);
+  width: 100%;
+  margin-top: auto;
+  padding-bottom: 40px;
+  transition: opacity 0.5s ease-out, visibility 0.5s ease-out, transform 0.5s ease-out;
+  opacity: 1;
+  visibility: visible;
+
+  h2 {
+    font-family: var(--antic-didone);
+    font-weight: 400;
+    font-size: 24px;
+    letter-spacing: 0.16em;
+    margin-bottom: 8px;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
   }
+  p {
+    font-family: var(--poiret-one);
+    font-weight: 400;
+    font-size: 16px;
+    letter-spacing: 0.08em;
+    margin-bottom: 22px;
+    opacity: 0.92;
+  }
+}
+
+.isHidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(20px);
 }
 
 .container {
@@ -67,19 +206,21 @@
   border-radius: 50%;
   border: 1px solid var(--white);
   flex-shrink: 0;
+  transition: box-shadow 0.25s ease-out, background 0.25s ease-out;
 }
 
 .track {
   flex-grow: 1;
   height: 2px;
   border-top: 2px dashed var(--white);
+  opacity: 0.85;
 }
 
 .slider {
   position: absolute;
   min-width: 52px;
   min-height: 52px;
-  background-color: var(--white);
+  background: radial-gradient(circle at 30% 30%, #fff 0%, #f4e2b5 100%);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -87,14 +228,113 @@
   cursor: grab;
   touch-action: none;
   user-select: none;
-  transition: transform 0.3s ease-out;
+  transition: transform 0.35s ease-out;
+  will-change: transform, box-shadow;
 
   img {
     margin-left: 5px;
+  }
+
+  &:active {
+    cursor: grabbing;
   }
 }
 
 .locked {
   cursor: default;
   pointer-events: none;
+}
+
+// Плавающий индикатор внизу — двигающаяся точка
+.scrollHint {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 22px;
+  height: 34px;
+  border: 1.5px solid rgba(255, 240, 210, 0.75);
+  border-radius: 12px;
+  z-index: 2;
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 6px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 3px;
+    height: 8px;
+    background: rgba(255, 240, 210, 0.9);
+    border-radius: 3px;
+    animation: scrollDot 1.8s ease-in-out infinite;
+  }
+}
+
+@keyframes scrollDot {
+  0%   { transform: translate(-50%, 0);    opacity: 1; }
+  60%  { transform: translate(-50%, 12px); opacity: 0.2; }
+  100% { transform: translate(-50%, 0);    opacity: 0; }
+}
+
+// ============================================
+// Desktop
+// ============================================
+@media (min-width: 768px) {
+  .wrapper {
+    align-items: center;
+    justify-content: center;
+  }
+  .content {
+    margin-top: 0;
+    max-width: 900px;
+  }
+  .heading {
+    font-size: 108px;
+    gap: 6px;
+    letter-spacing: 0.07em;
+  }
+  .amp {
+    font-size: 150px;
+    margin: -14px 0;
+  }
+  .smallOrnament {
+    margin-top: 32px;
+    max-width: 320px;
+  }
+  .bottom {
+    padding-bottom: 90px;
+    h2 {
+      font-size: 32px;
+      letter-spacing: 0.24em;
+    }
+    p {
+      font-size: 18px;
+      margin-bottom: 30px;
+    }
+  }
+  .container {
+    max-width: 460px;
+  }
+  .circle,
+  .slider {
+    width: 60px;
+    min-width: 60px;
+    height: 60px;
+    min-height: 60px;
+  }
+  .scrollHint {
+    bottom: 28px;
+    width: 26px;
+    height: 40px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .heading {
+    font-size: 140px;
+  }
+  .amp {
+    font-size: 200px;
+  }
 }

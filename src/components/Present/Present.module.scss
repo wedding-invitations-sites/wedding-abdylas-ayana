@@ -1,48 +1,118 @@
+@use "../../styles/variables.scss" as *;
+
 .container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   text-align: center;
-  margin-bottom: 60px;
-  padding-top: 80px;
-  clip-path: ellipse(120% 100% at bottom center);
-  background-color: var(--white);
-  height: 100vh;
-  .inner {
-    margin-top: 10%;
+  padding: 60px 0 30px;
+  clip-path: ellipse(140% 100% at bottom center);
+  background:
+    radial-gradient(circle at 30% 20%, rgba(232, 205, 140, 0.25) 0%, transparent 55%),
+    linear-gradient(180deg, #ffffff 0%, #fbf7ee 100%);
+  min-height: 100vh;
+  position: relative;
+  z-index: 1;
+}
+
+.envelopeSection {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.textWrapper {
+  padding: 14px 20px 0;
+  max-width: 720px;
+  width: 100%;
+  will-change: opacity, transform;
+}
+
+.inner {
+  margin-top: 20px;
+}
+
+.firstText {
+  margin-bottom: 18px;
+  font-family: var(--playfair-display);
+  font-size: 26px;
+  font-weight: 400;
+  color: var(--main-color);
+  letter-spacing: 0.02em;
+}
+
+.divider {
+  width: 80px;
+  height: 1px;
+  background: var(--main-color);
+  opacity: 0.5;
+  margin: 0 auto 22px;
+  transform-origin: center;
+}
+
+.secondText {
+  font-family: var(--playfair-display);
+  font-weight: 400;
+  font-size: 16px;
+  color: var(--black);
+  margin-bottom: 12px;
+  letter-spacing: 0.02em;
+}
+
+.calligraphy {
+  width: 100%;
+  max-width: 420px;
+  margin: 0 auto 22px;
+
+  svg {
+    width: 100%;
+    height: auto;
+    display: block;
+    overflow: visible;
+    filter: drop-shadow(0 4px 14px rgba(153, 118, 44, 0.28));
   }
-  .textWrapper {
-    padding: 14px 15px 0 15px;
+
+  text {
+    letter-spacing: -0.02em;
   }
-  .emblema {
-    margin-bottom: 50px;
+}
+
+.fourthText {
+  font-family: var(--playfair-display);
+  font-size: 16px;
+  color: var(--black);
+  line-height: 1.65;
+  margin-bottom: 30px;
+  max-width: 42ch;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding: 80px 0 60px;
+    min-height: 90vh;
   }
   .firstText {
-    margin-bottom: 13px;
-    font-family: var(--playfair-display);
-    font-size: 24px;
-    font-weight: 400;
+    font-size: 40px;
+    margin-bottom: 24px;
+  }
+  .divider {
+    width: 140px;
+    margin-bottom: 32px;
   }
   .secondText {
-    font-family: var(--playfair-display);
-    font-weight: 400;
-    font-size: 16px;
-    color: var(--black);
-    margin-bottom: 15px;
-  }
-
-  .thirdText {
-    font-family: var(--savoye-let);
-    font-size: 48px;
-    color: var(--main-color);
+    font-size: 20px;
     margin-bottom: 16px;
   }
-
+  .calligraphy {
+    max-width: 640px;
+    margin-bottom: 32px;
+  }
   .fourthText {
-    font-family: var(--playfair-display);
-    font-size: 16px;
-    color: var(--black);
-    margin-bottom: 45px;
+    font-size: 20px;
+    line-height: 1.75;
+    max-width: 56ch;
   }
 }

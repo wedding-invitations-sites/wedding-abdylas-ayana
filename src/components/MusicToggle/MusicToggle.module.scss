@@ -1,0 +1,85 @@
+@use "../../styles/variables.scss" as *;
+
+.wrapper {
+  position: fixed;
+  left: 16px;
+  bottom: 24px;
+  z-index: 900;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: 1px solid rgba(232, 205, 140, 0.6);
+  background: linear-gradient(135deg, #99762c 0%, #c69b47 50%, #7c6024 100%);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow:
+    0 10px 26px rgba(80, 60, 15, 0.35),
+    0 2px 8px rgba(153, 118, 44, 0.25),
+    inset 0 1px 0 rgba(255, 245, 220, 0.35);
+  padding: 0;
+}
+
+.disc {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.eq {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 3px;
+  height: 18px;
+
+  span {
+    width: 3px;
+    height: 6px;
+    background: #fff;
+    border-radius: 2px;
+    transform-origin: bottom center;
+  }
+
+  &[data-playing="true"] {
+    span {
+      animation: eqBar 900ms ease-in-out infinite;
+    }
+    span:nth-child(1) { animation-delay: 0ms;   }
+    span:nth-child(2) { animation-delay: 120ms; }
+    span:nth-child(3) { animation-delay: 60ms;  }
+    span:nth-child(4) { animation-delay: 200ms; }
+  }
+}
+
+@keyframes eqBar {
+  0%, 100% { transform: scaleY(0.4); }
+  50%      { transform: scaleY(1.6); }
+}
+
+.pulse {
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 1px solid rgba(232, 205, 140, 0.6);
+  animation: musicPulse 2.4s ease-out infinite;
+  pointer-events: none;
+}
+
+@keyframes musicPulse {
+  0%   { transform: scale(1);   opacity: 0.7; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+
+@media (min-width: 768px) {
+  .wrapper {
+    left: 28px;
+    bottom: 28px;
+    width: 60px;
+    height: 60px;
+  }
+}

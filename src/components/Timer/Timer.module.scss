@@ -1,50 +1,186 @@
+@use "../../styles/variables.scss" as *;
+
 .container {
-  background: var(--main-color);
+  background: linear-gradient(180deg, #1a1408 0%, #2a2114 50%, #1a1408 100%);
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   color: var(--white);
-  height: 200px;
-  padding-top: 77px;
-  clip-path: ellipse(75% 100% at bottom center);
+  min-height: 320px;
+  padding: 90px 20px 110px;
+  clip-path: ellipse(130% 100% at top center);
+  position: relative;
+  overflow: hidden;
+  margin-top: -1px;
+}
 
-  .label {
-    font-family: var(--playfair-display);
-    font-weight: 400;
-    font-size: 18px;
+// Ambient — 3 больших мягких пятна золотого света
+.ambient {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.ambientA,
+.ambientB,
+.ambientC {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  will-change: transform, opacity;
+}
+
+.ambientA {
+  top: -15%; left: -10%;
+  width: 55%; height: 55%;
+  background: radial-gradient(circle, rgba(232, 205, 140, 0.45), transparent 70%);
+  animation: ambientFloat 12s ease-in-out infinite;
+}
+.ambientB {
+  top: 40%; right: -15%;
+  width: 65%; height: 65%;
+  background: radial-gradient(circle, rgba(198, 155, 71, 0.35), transparent 70%);
+  animation: ambientFloat 14s ease-in-out infinite 2s;
+}
+.ambientC {
+  bottom: -20%; left: 30%;
+  width: 45%; height: 45%;
+  background: radial-gradient(circle, rgba(212, 169, 74, 0.3), transparent 70%);
+  animation: ambientFloat 10s ease-in-out infinite 1s;
+}
+
+@keyframes ambientFloat {
+  0%, 100% { transform: translate(0, 0)      scale(1);   opacity: 0.6; }
+  50%      { transform: translate(6%, -4%)   scale(1.15); opacity: 1;   }
+}
+
+.title {
+  position: relative;
+  z-index: 1;
+  font-family: var(--playfair-display);
+  font-weight: 400;
+  font-size: 18px;
+  margin-bottom: 36px;
+  letter-spacing: 0.14em;
+  text-align: center;
+  color: rgba(255, 245, 220, 0.95);
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
+}
+
+.timer {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 100%;
+}
+
+.cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+// Стеклянный медальон
+.cellDisc {
+  position: relative;
+  width: 78px;
+  height: 78px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 30% 25%, rgba(255, 245, 220, 0.18) 0%, transparent 55%),
+    linear-gradient(135deg, rgba(255, 245, 220, 0.12) 0%, rgba(153, 118, 44, 0.15) 100%);
+  border: 1px solid rgba(232, 205, 140, 0.35);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow:
+    0 12px 30px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 245, 220, 0.25),
+    inset 0 0 20px rgba(232, 205, 140, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ring {
+  position: absolute;
+  inset: -4px;
+  width: calc(100% + 8px);
+  height: calc(100% + 8px);
+  filter: drop-shadow(0 0 6px rgba(232, 205, 140, 0.6));
+}
+
+.numWrap {
+  position: relative;
+  width: 60%;
+  height: 60%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.num {
+  position: absolute;
+  font-family: var(--playfair-display);
+  font-weight: 400;
+  font-size: 34px;
+  line-height: 1;
+  color: #fff5dc;
+  text-shadow:
+    0 2px 12px rgba(0, 0, 0, 0.5),
+    0 0 20px rgba(232, 205, 140, 0.4);
+  will-change: transform, opacity, filter;
+}
+
+.unit {
+  font-family: var(--playfair-display-sc);
+  font-weight: 400;
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  opacity: 0.85;
+  text-transform: uppercase;
+  color: #f4e2b5;
+}
+
+@media (min-width: 768px) {
+  .container {
+    min-height: 480px;
+    padding: 140px 24px 160px;
   }
-
+  .title {
+    font-size: 24px;
+    margin-bottom: 60px;
+    letter-spacing: 0.2em;
+  }
   .timer {
-    display: flex;
-    gap: 30px;
+    gap: 28px;
+  }
+  .cellDisc {
+    width: 130px;
+    height: 130px;
+  }
+  .num {
+    font-size: 58px;
+  }
+  .unit {
+    font-size: 13px;
+    letter-spacing: 0.28em;
+  }
+}
 
-    div {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      .num {
-        text-align: center;
-        display: inline-block;
-        font-family: var(--playfair-display);
-        font-weight: 400;
-        font-size: 40px;
-        position: relative;
-
-        &::after {
-          content: ":";
-          position: absolute;
-          right: -20px;
-        }
-      }
-      &:last-child .num::after {
-        display: none;
-      }
-
-      .label {
-        font-family: var(--playfair-display-sc);
-        font-weight: 400;
-        font-size: 12px;
-      }
-    }
+@media (min-width: 1200px) {
+  .cellDisc {
+    width: 160px;
+    height: 160px;
+  }
+  .num {
+    font-size: 72px;
   }
 }

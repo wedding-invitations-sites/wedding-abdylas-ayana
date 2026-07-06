@@ -1,0 +1,74 @@
+.wrapper {
+  position: fixed;
+  right: 16px;
+  bottom: 24px;
+  z-index: 900;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.96);
+  color: var(--main-color);
+  border: 1px solid rgba(124, 96, 36, 0.5);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.28),
+    0 2px 10px rgba(0, 0, 0, 0.18),
+    0 0 0 4px rgba(0, 0, 0, 0.06);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.32),
+      0 4px 12px rgba(0, 0, 0, 0.22);
+  }
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+.ring {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.ringTrack {
+  fill: none;
+  stroke: rgba(153, 118, 44, 0.15);
+  stroke-width: 2;
+}
+
+.ringFill {
+  fill: none;
+  stroke: var(--main-color);
+  stroke-width: 2;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.2s ease-out;
+}
+
+.arrow {
+  width: 20px;
+  height: 20px;
+  position: relative;
+  z-index: 1;
+}
+
+@media (min-width: 768px) {
+  .wrapper {
+    right: 28px;
+    bottom: 28px;
+    width: 60px;
+    height: 60px;
+  }
+  .arrow {
+    width: 22px;
+    height: 22px;
+  }
+}

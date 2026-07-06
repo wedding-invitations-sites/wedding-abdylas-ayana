@@ -4,17 +4,48 @@
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
 button {
   background: none;
   border: none;
   cursor: pointer;
+  font: inherit;
+  color: inherit;
+}
+
+input,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+/* Скрываем системный курсор, когда активен кастомный */
+body.has-custom-cursor,
+body.has-custom-cursor * {
+  cursor: none !important;
 }
 
 #root {
-  background-color: var(--white);
+  background-color: #fbf7ee;
   display: flex;
   align-items: center;
   flex-direction: column;
+  min-height: 100dvh;
 }
 
 main {
@@ -22,4 +53,30 @@ main {
   min-width: 320px;
   box-shadow: 0 0 8px 5px rgba(34, 60, 80, 0.2);
   width: 100%;
+  overflow-x: hidden;
+  background-color: #fbf7ee;
+}
+
+@media (min-width: 768px) {
+  main {
+    max-width: 100%;
+    box-shadow: none;
+  }
+}
+
+/* Селекция текста — золотая, чтобы попадать в бренд */
+::selection {
+  background: rgba(198, 155, 71, 0.35);
+  color: #2a2114;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
 }
