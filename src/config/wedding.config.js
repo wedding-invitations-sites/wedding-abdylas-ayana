@@ -137,7 +137,7 @@ export const weddingConfig = {
     //      @имя_бота и обновить страницу getUpdates.
     telegram: {
       botToken: '8824376739:AAFnNF7BTzaX10lBPrsEMZ0kAZllnStFxm4',
-      chatId: '-5549993525', // группа «Свадьба Абдылас & Аяна»
+      chatId: '-1004341630358', // группа «Свадьба Абдылас & Аяна»
     },
     // Запасной вариант: https://formspree.io -> New form -> ID из endpoint
     formspreeId: 'YOUR_FORMSPREE_ID',
