@@ -44,4 +44,7 @@ export default {
     scrollTop: "Наверх",
     loading: "Загрузка",
   },
+  authorContacts: {
+    title: "Хотите такой же сайт-приглашение?",
+  },
 };

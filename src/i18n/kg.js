@@ -44,4 +44,7 @@ export default {
     scrollTop: "Өйдө",
     loading: "Жүктөлүүдө",
   },
+  authorContacts: {
+    title: "Ушундай сайт-чакыруу керекпи?",
+  },
 };

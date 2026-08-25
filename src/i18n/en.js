@@ -44,4 +44,7 @@ export default {
     scrollTop: "Back to top",
     loading: "Loading",
   },
+  authorContacts: {
+    title: "Want an invitation website like this?",
+  },
 };

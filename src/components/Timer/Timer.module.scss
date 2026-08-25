@@ -11,6 +11,9 @@
   padding: 90px 20px 110px;
   clip-path: ellipse(130% 100% at top center);
   position: relative;
+  // Выше футера, который заезжает под таймер отрицательным margin —
+  // кремовый фон заполняет вырезанные углы, а дуга остаётся «родной».
+  z-index: 1;
   overflow: hidden;
   margin-top: -1px;
 }
@@ -74,8 +77,8 @@
   z-index: 1;
   display: flex;
   align-items: flex-start;
-  gap: 12px;
-  flex-wrap: wrap;
+  gap: clamp(8px, 2.5vw, 12px);
+  flex-wrap: nowrap;
   justify-content: center;
   max-width: 100%;
 }
@@ -90,8 +93,8 @@
 // Стеклянный медальон
 .cellDisc {
   position: relative;
-  width: 78px;
-  height: 78px;
+  width: clamp(52px, 19vw, 78px);
+  height: clamp(52px, 19vw, 78px);
   border-radius: 50%;
   background:
     radial-gradient(circle at 30% 25%, rgba(255, 245, 220, 0.18) 0%, transparent 55%),
@@ -130,7 +133,7 @@
   position: absolute;
   font-family: var(--playfair-display);
   font-weight: 400;
-  font-size: 34px;
+  font-size: clamp(22px, 8.5vw, 34px);
   line-height: 1;
   color: #fff5dc;
   text-shadow:

@@ -25,6 +25,43 @@ function fireConfetti() {
 // Steps: name → attendance → guests (only if attending) → wishes → review
 const stepsBase = ["name", "attendance", "wishes"];
 
+// ——— Отправка ответа в Telegram-группу через переиспользуемого бота ———
+// Бот один на все сайты-приглашения; у каждой свадьбы своя группа (chatId в конфиге).
+
+const escapeHtml = (s) =>
+  String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+async function sendToTelegram({ botToken, chatId }, form) {
+  const attending = form.attendance === "yes";
+  const lines = [
+    `💌 <b>Жаңы жооп / Новый ответ</b> — ${escapeHtml(window.location.host)}`,
+    "",
+    `👤 <b>Аты-жөнү / Имя:</b> ${escapeHtml(form.name)}`,
+    attending ? "✅ <b>Келет / Придёт</b>" : "❌ <b>Келбейт / Не придёт</b>",
+  ];
+  if (attending) lines.push(`👥 <b>Коноктор / Гостей:</b> ${form.guests}`);
+  if (form.wishes.trim()) {
+    lines.push(`💬 <b>Каалоолор / Пожелания:</b> ${escapeHtml(form.wishes)}`);
+  }
+
+  const res = await fetch(
+    `https://api.telegram.org/bot${botToken}/sendMessage`,
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        chat_id: chatId,
+        text: lines.join("\n"),
+        parse_mode: "HTML",
+      }),
+    }
+  );
+  const data = await res.json().catch(() => null);
+  if (!res.ok || !data?.ok) {
+    throw new Error(`Telegram: ${data?.description || `HTTP ${res.status}`}`);
+  }
+}
+
 export function RSVP() {
   const { t } = useLang();
   const [form, setForm] = useState(initialForm);
@@ -69,14 +106,18 @@ export function RSVP() {
 
   const submit = async () => {
     setStatus("submitting");
-    const { formspreeId } = weddingConfig.rsvp;
-    const isConfigured = formspreeId && formspreeId !== "YOUR_FORMSPREE_ID";
-    if (!isConfigured) {
-      console.warn("[RSVP] Formspree ID not set. Running in demo mode.");
-    }
+    const { telegram, formspreeId } = weddingConfig.rsvp;
+    const tgReady =
+      telegram?.botToken &&
+      telegram.botToken !== "YOUR_BOT_TOKEN" &&
+      telegram?.chatId &&
+      String(telegram.chatId) !== "YOUR_CHAT_ID";
+    const fsReady = formspreeId && formspreeId !== "YOUR_FORMSPREE_ID";
 
     try {
-      if (isConfigured) {
+      if (tgReady) {
+        await sendToTelegram(telegram, form);
+      } else if (fsReady) {
         const res = await fetch(`https://formspree.io/f/${formspreeId}`, {
           method: "POST",
           headers: {
@@ -92,6 +133,7 @@ export function RSVP() {
         });
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
       } else {
+        console.warn("[RSVP] Telegram/Formspree не настроены. Демо-режим.");
         await new Promise((r) => setTimeout(r, 900));
       }
       setStatus("success");
@@ -166,7 +208,6 @@ export function RSVP() {
                           })}
                           value={form.name}
                           onChange={(e) => update("name", e.target.value)}
-                          autoFocus
                           onKeyDown={(e) => {
                             if (e.key === "Enter") next();
                           }}

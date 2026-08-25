@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion as Motion } from "framer-motion";
 import { Address } from "./components/Address";
+import { AuthorContacts } from "./components/AuthorContacts";
 import { Calendar } from "./components/Calendar";
 import { Hero } from "./components/Hero";
 import { Ouners } from "./components/Ouners";
@@ -69,6 +70,7 @@ function AppInner() {
               <Ouners />
               <RSVP />
               <Timer />
+              <AuthorContacts />
             </Motion.div>
           )}
         </AnimatePresence>

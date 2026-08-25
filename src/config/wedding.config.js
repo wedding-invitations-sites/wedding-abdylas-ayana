@@ -124,7 +124,22 @@ export const weddingConfig = {
   ],
 
   rsvp: {
-    // Замените на свой Formspree ID: https://formspree.io -> New form -> копируем ID из endpoint xxxx/xxxxxxx
+    // Приоритет отправки: Telegram (если настроен) → Formspree → демо-режим.
+    //
+    // Telegram: ОДИН бот переиспользуется на всех сайтах-приглашениях,
+    // для каждой свадьбы создаётся отдельная группа:
+    //   1) Бот создаётся один раз через @BotFather → botToken (одинаковый на всех сайтах).
+    //   2) Для новой свадьбы: создать группу и добавить в неё бота.
+    //   3) Узнать chatId группы: открыть
+    //      https://api.telegram.org/bot<botToken>/getUpdates
+    //      и найти "chat":{"id":-100...} (у групп id отрицательный).
+    //      Если ответ пустой — написать в группу сообщение с упоминанием
+    //      @имя_бота и обновить страницу getUpdates.
+    telegram: {
+      botToken: '8824376739:AAFnNF7BTzaX10lBPrsEMZ0kAZllnStFxm4',
+      chatId: '-5511445967', // группа «Свадьба Абдылас & Аяна»
+    },
+    // Запасной вариант: https://formspree.io -> New form -> ID из endpoint
     formspreeId: 'YOUR_FORMSPREE_ID',
   },
 

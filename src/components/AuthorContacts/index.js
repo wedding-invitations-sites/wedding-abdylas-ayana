@@ -1,0 +1,1 @@
+export { AuthorContacts } from "./AuthorContacts";

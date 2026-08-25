@@ -1,36 +1,27 @@
-import { useEffect, useState } from "react";
-import { AnimatePresence, motion as Motion } from "framer-motion";
+import { useState } from "react";
+import {
+  AnimatePresence,
+  motion as Motion,
+  useScroll,
+  useMotionValueEvent,
+} from "framer-motion";
 import styles from "./ScrollTop.module.scss";
 import { useLang } from "../../i18n";
 
 // Круговой прогресс скролла + кнопка «наверх».
 // Появляется после того, как страница проскроллена на > 400px.
+// Кольцо рисуется напрямую из motion value (без setState на каждый кадр) —
+// иначе прогресс отстаёт от скролла.
 export function ScrollTop() {
   const { t } = useLang();
-  const [progress, setProgress] = useState(0);
   const [visible, setVisible] = useState(false);
+  const { scrollY, scrollYProgress } = useScroll();
 
-  useEffect(() => {
-    const onScroll = () => {
-      const doc = document.documentElement;
-      const scrolled = window.scrollY;
-      const max = doc.scrollHeight - window.innerHeight;
-      const p = max > 0 ? Math.min(1, scrolled / max) : 0;
-      setProgress(p);
-      setVisible(scrolled > 400);
-    };
-    window.addEventListener("scroll", onScroll, { passive: true });
-    onScroll();
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  useMotionValueEvent(scrollY, "change", (y) => setVisible(y > 400));
 
   const handleClick = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
-
-  const RADIUS = 22;
-  const CIRC = 2 * Math.PI * RADIUS;
-  const dashOffset = CIRC * (1 - progress);
 
   return (
     <AnimatePresence>
@@ -53,16 +44,15 @@ export function ScrollTop() {
             <circle
               cx="26"
               cy="26"
-              r={RADIUS}
+              r="22"
               className={styles.ringTrack}
             />
-            <circle
+            <Motion.circle
               cx="26"
               cy="26"
-              r={RADIUS}
+              r="22"
               className={styles.ringFill}
-              strokeDasharray={CIRC}
-              strokeDashoffset={dashOffset}
+              style={{ pathLength: scrollYProgress }}
               transform="rotate(-90 26 26)"
             />
           </svg>
