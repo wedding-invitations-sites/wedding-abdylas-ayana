@@ -4,39 +4,39 @@
 export const weddingConfig = {
   couple: {
     groom: {
-      name: { en: 'Tariel', ru: 'Тариел', kg: 'Тариел' },
-      initial: 'T',
+      name: { en: 'Abdylas', ru: 'Абдылас', kg: 'Абдылас' },
+      initial: 'A',
     },
     bride: {
-      name: { en: 'Tattybubu', ru: 'Таттыбубу', kg: 'Таттыбубу' },
-      initial: 'T',
+      name: { en: 'Ayana', ru: 'Аяна', kg: 'Аяна' },
+      initial: 'A',
     },
     // Отдельно — «декоративное» написание, которое идёт в hero крупным рукописным шрифтом
     display: {
-      en: 'Tariel & Tattybubu',
-      ru: 'Тариел & Таттыбубу',
-      kg: 'Tariel & Tattybubu',
+      en: 'Abdylas & Ayana',
+      ru: 'Abdylas & Ayana',
+      kg: 'Abdylas & Ayana',
     },
   },
 
   // ISO без таймзоны — трактуется как локальное время в браузере гостя
-  date: '2026-10-12T16:00:00',
+  date: '2026-09-25T17:00:00',
 
   venue: {
     name: {
-      en: 'Restaurant AYAR',
-      ru: 'Ресторан «AYAR»',
-      kg: 'Ресторан «AYAR»',
+      en: 'Banquet Hall “EGO”',
+      ru: 'Банкетный холл «EGO»',
+      kg: 'Банкетный холл «EGO»',
     },
     address: {
-      en: 'Bishkek, Frunze str. 133',
-      ru: 'Бишкек, ул. Фрунзе 133',
-      kg: 'Бишкек шаары, Фрунзе көчөсү 133',
+      en: 'Bishkek, Aaly Tokombaeva str. 43',
+      ru: 'Бишкек, ул. Аалы Токомбаева, 43',
+      kg: 'Бишкек шаары, Аалы Токомбаева көчөсү 43',
     },
-    coords: { lat: 42.87586, lng: 74.500521 },
-    mapCenter: { lat: 42.875671, lng: 74.500478, zoom: 16 },
+    coords: { lat: 42.827267, lng: 74.609416 },
+    mapCenter: { lat: 42.827267, lng: 74.609416, zoom: 16 },
     externalMapUrl:
-      'https://2gis.kg/bishkek/firm/70000001090743355/74.500521,42.87586?m=74.500478,42.875671/16',
+      'https://2gis.kg/bishkek/firm/70000001058831394?m=74.609416%2C42.827267%2F17.41',
     // Провайдер embed-карты: "osm" (без ключа, работает всегда), "yandex" (без ключа, СНГ)
     // или "google" (требует API-ключ в googleApiKey ниже)
     mapProvider: 'osm',
@@ -46,9 +46,9 @@ export const weddingConfig = {
   // Родители-хозяева торжества («той ээлери»)
   parents: {
     groom: {
-      en: 'Kaldarbek & Aigul',
-      ru: 'Калдарбек & Айгүл',
-      kg: 'Калдарбек & Айгүл',
+      en: 'Sultan & Cholpon',
+      ru: 'Султан & Чолпон',
+      kg: 'Султан & Чолпон',
     },
     bride: null,
   },
@@ -82,7 +82,7 @@ export const weddingConfig = {
   // Расписание дня (Timeline). Время в формате HH:mm.
   timeline: [
     {
-      time: '15:00',
+      time: '17:00',
       title: {
         en: 'Guests welcome',
         ru: 'Встреча гостей',
@@ -90,7 +90,7 @@ export const weddingConfig = {
       },
     },
     {
-      time: '16:00',
+      time: '18:00',
       title: {
         en: 'Ceremony',
         ru: 'Церемония',
@@ -98,7 +98,7 @@ export const weddingConfig = {
       },
     },
     {
-      time: '17:00',
+      time: '19:00',
       title: {
         en: 'Banquet',
         ru: 'Банкет',
@@ -106,7 +106,7 @@ export const weddingConfig = {
       },
     },
     {
-      time: '19:00',
+      time: '21:00',
       title: {
         en: 'First dance',
         ru: 'Первый танец',
@@ -114,7 +114,7 @@ export const weddingConfig = {
       },
     },
     {
-      time: '22:00',
+      time: '00:00',
       title: {
         en: 'After-party',
         ru: 'После-вечеринка',
@@ -137,7 +137,7 @@ export const weddingConfig = {
     //      @имя_бота и обновить страницу getUpdates.
     telegram: {
       botToken: '8824376739:AAFnNF7BTzaX10lBPrsEMZ0kAZllnStFxm4',
-      chatId: '-5511445967', // группа «Свадьба Абдылас & Аяна»
+      chatId: '-5549993525', // группа «Свадьба Абдылас & Аяна»
     },
     // Запасной вариант: https://formspree.io -> New form -> ID из endpoint
     formspreeId: 'YOUR_FORMSPREE_ID',
@@ -145,6 +145,11 @@ export const weddingConfig = {
 
   audio: {
     src: '/audio/mus.mp3',
+  },
+
+  // Фотогалерея (карусель с фото пары) в секции календаря. false — блок скрыт.
+  gallery: {
+    enabled: false,
   },
 
   defaultLocale: 'kg',

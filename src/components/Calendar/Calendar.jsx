@@ -209,9 +209,11 @@ export function Calendar() {
           </div>
         </Motion.div>
 
-        <Motion.div {...reveal.fadeUp} className={styles.galleryWrap}>
-          <DraggableGallery slides={slides} />
-        </Motion.div>
+        {weddingConfig.gallery?.enabled && (
+          <Motion.div {...reveal.fadeUp} className={styles.galleryWrap}>
+            <DraggableGallery slides={slides} />
+          </Motion.div>
+        )}
 
         <Motion.p {...reveal.blurIn} className={styles.desk}>
           {weddingConfig.poem[lang] || weddingConfig.poem.kg}
