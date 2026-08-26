@@ -9,7 +9,7 @@ export default {
     weekdays: ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"],
   },
   timeline: {
-    sectionTitle: "Расписание дня",
+    sectionTitle: "Ждём вас",
   },
   address: {
     sectionTitle: "Адрес",

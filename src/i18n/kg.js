@@ -9,7 +9,7 @@ export default {
     weekdays: ["Дүй", "Шей", "Шар", "Бей", "Жум", "Ише", "Жек"],
   },
   timeline: {
-    sectionTitle: "Тойдун программасы",
+    sectionTitle: "Сиздерди күтөбүз",
   },
   address: {
     sectionTitle: "Дареги",

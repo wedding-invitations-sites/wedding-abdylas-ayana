@@ -82,7 +82,7 @@ export const weddingConfig = {
   // Расписание дня (Timeline). Время в формате HH:mm.
   timeline: [
     {
-      time: '17:00',
+      time: '16:30',
       title: {
         en: 'Guests welcome',
         ru: 'Встреча гостей',
@@ -90,35 +90,11 @@ export const weddingConfig = {
       },
     },
     {
-      time: '18:00',
+      time: '17:00',
       title: {
-        en: 'Ceremony',
-        ru: 'Церемония',
-        kg: 'Нике кыюу',
-      },
-    },
-    {
-      time: '19:00',
-      title: {
-        en: 'Banquet',
-        ru: 'Банкет',
-        kg: 'Дасторкон',
-      },
-    },
-    {
-      time: '21:00',
-      title: {
-        en: 'First dance',
-        ru: 'Первый танец',
-        kg: 'Биринчи бий',
-      },
-    },
-    {
-      time: '00:00',
-      title: {
-        en: 'After-party',
-        ru: 'После-вечеринка',
-        kg: 'Кечки бий',
+        en: 'Banquet begins',
+        ru: 'Начало банкета',
+        kg: 'Тойдун башталышы',
       },
     },
   ],

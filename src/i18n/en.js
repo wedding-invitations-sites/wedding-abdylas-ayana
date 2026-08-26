@@ -9,7 +9,7 @@ export default {
     weekdays: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
   },
   timeline: {
-    sectionTitle: "Schedule of the day",
+    sectionTitle: "Join us",
   },
   address: {
     sectionTitle: "Address",
